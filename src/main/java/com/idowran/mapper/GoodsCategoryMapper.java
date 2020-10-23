@@ -12,7 +12,6 @@ import com.idowran.entity.response.GoodsCategorySubVO;
 @Mapper
 public interface GoodsCategoryMapper extends BaseMapper<GoodsCategory> {
 	
-	
 	@Select("SELECT gc.id, gc.title, gc.pic, gc.sort, count(g.id) goods_count FROM nd_goods_category gc " + 
 			"LEFT JOIN nd_goods g ON gc.id = g.category_id " + 
 			"WHERE p_id = #{topId} GROUP BY gc.id ORDER BY gc.sort ASC")

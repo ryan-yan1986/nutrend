@@ -4,9 +4,12 @@ public interface CartService {
 	
 	public void getInfo();
 	
-	public Integer inc(Long id);
+	public Integer goodsAdd(Long goodsId);
 	
-	public Integer dec(Long id);
+	public Integer goodsRemove(Long goodsId);
 	
-	public Integer remove(Long id);
+	public Integer goodsInc(Long goodsId);
+	
+	public Integer goodsDec(Long goodsId);
+	
 }
