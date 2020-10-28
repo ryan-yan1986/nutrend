@@ -1,12 +1,16 @@
 package com.idowran.service.impl;
 
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.idowran.entity.Cart;
+import com.idowran.entity.response.CartGoodsVO;
+import com.idowran.entity.response.CartInfoVO;
 import com.idowran.mapper.CartMapper;
 import com.idowran.service.CartService;
 import com.idowran.utils.UserUtils;
@@ -18,9 +22,18 @@ public class CartServiceImpl implements CartService {
 	private CartMapper cartMapper;
 	
 	@Override
-	public void getInfo() {
+	public CartInfoVO getInfo() {
 		// TODO Auto-generated method stub
-
+		Long userId = UserUtils.getUserId();
+		
+		List<CartGoodsVO> cartGoodsList = cartMapper.getGoodsList(userId);
+		// 总价格
+		Double priceTotal = cartGoodsList.stream().mapToDouble(item -> new BigDecimal(item.getNumber()).multiply(new BigDecimal(item.getPrice())).doubleValue()).sum();
+		
+		CartInfoVO vo = new CartInfoVO();
+		vo.setGoodsList(cartGoodsList);
+		vo.setPriceTotal(priceTotal);
+		return vo;
 	}
 	
 	@Override

@@ -1,8 +1,10 @@
 package com.idowran.service;
 
+import com.idowran.entity.response.CartInfoVO;
+
 public interface CartService {
 	
-	public void getInfo();
+	public CartInfoVO getInfo();
 	
 	public Integer goodsAdd(Long goodsId);
 	

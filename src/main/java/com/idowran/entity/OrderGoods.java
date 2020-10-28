@@ -1,7 +1,5 @@
 package com.idowran.entity;
 
-import java.util.Date;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -25,9 +23,11 @@ public class OrderGoods {
 	
 	private Double price;
 	
+	private String pic;
+	
 	private String content;		// 描述
 	
-	private Date createDate;
+	private Integer number;		// 商品数量
 	
 	private String commend;			// 评价描述
 	
