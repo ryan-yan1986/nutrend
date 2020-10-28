@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.idowran.entity.Goods;
@@ -53,12 +54,14 @@ public class GoodsServiceImpl implements GoodsService{
 		return voList;
 	}
 
+	@Transactional
 	@Override
 	public Integer categorySave() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Transactional
 	@Override
 	public Integer categoryRemove(Long id) {
 		// TODO Auto-generated method stub
@@ -108,12 +111,14 @@ public class GoodsServiceImpl implements GoodsService{
 		return vo;
 	}
 
+	@Transactional
 	@Override
 	public Integer save() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Transactional
 	@Override
 	public Integer remove(Long id) {
 		// TODO Auto-generated method stub

@@ -1,10 +1,16 @@
 package com.idowran.service;
 
+import java.util.List;
+
+import com.idowran.entity.response.OrderVO;
+
 public interface OrderService {
 
-	public void getList();
+	public List<OrderVO> getList();
 	
-	public void getInfo();
+	public OrderVO getInfo(Long id);
+	
+	public Integer create(List<Long> goodsIds);
 	
 	public Integer commend();
 	

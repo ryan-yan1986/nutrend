@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.idowran.entity.Cart;
@@ -35,7 +36,8 @@ public class CartServiceImpl implements CartService {
 		vo.setPriceTotal(priceTotal);
 		return vo;
 	}
-	
+
+	@Transactional
 	@Override
 	public Integer goodsAdd(Long goodsId) {
 		Long userId = UserUtils.getUserId();
@@ -60,6 +62,7 @@ public class CartServiceImpl implements CartService {
 		return res;
 	}
 
+	@Transactional
 	@Override
 	public Integer goodsRemove(Long goodsId) {
 		Long userId = UserUtils.getUserId();
@@ -70,6 +73,7 @@ public class CartServiceImpl implements CartService {
 		return cartMapper.delete(wrapper);
 	}
 
+	@Transactional
 	@Override
 	public Integer goodsInc(Long goodsId) {
 		Long userId = UserUtils.getUserId();
@@ -84,6 +88,7 @@ public class CartServiceImpl implements CartService {
 		return cartMapper.updateById(cart);
 	}
 
+	@Transactional
 	@Override
 	public Integer goodsDec(Long goodsId) {
 		Long userId = UserUtils.getUserId();
