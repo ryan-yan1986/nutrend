@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.idowran.entity.Goods;
 import com.idowran.entity.GoodsCategory;
+import com.idowran.entity.request.GoodsCategoryDto;
+import com.idowran.entity.request.GoodsDto;
 import com.idowran.entity.response.GoodsCategorySubVO;
 import com.idowran.entity.response.GoodsCategoryVO;
 import com.idowran.entity.response.GoodsVO;
@@ -56,7 +58,7 @@ public class GoodsServiceImpl implements GoodsService{
 
 	@Transactional
 	@Override
-	public Integer categorySave() {
+	public Integer categorySave(GoodsCategoryDto dto) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -113,7 +115,7 @@ public class GoodsServiceImpl implements GoodsService{
 
 	@Transactional
 	@Override
-	public Integer save() {
+	public Integer save(GoodsDto dto) {
 		// TODO Auto-generated method stub
 		return null;
 	}
