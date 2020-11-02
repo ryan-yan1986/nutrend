@@ -1,5 +1,6 @@
 package com.idowran.service.impl;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,12 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.idowran.entity.Goods;
 import com.idowran.entity.GoodsCategory;
+import com.idowran.entity.GoodsCategoryRelation;
 import com.idowran.entity.request.GoodsCategoryDto;
 import com.idowran.entity.request.GoodsDto;
 import com.idowran.entity.response.GoodsCategorySubVO;
 import com.idowran.entity.response.GoodsCategoryVO;
 import com.idowran.entity.response.GoodsVO;
 import com.idowran.mapper.GoodsCategoryMapper;
+import com.idowran.mapper.GoodsCategoryRelationMapper;
 import com.idowran.mapper.GoodsMapper;
 import com.idowran.service.GoodsService;
 
@@ -29,6 +32,8 @@ public class GoodsServiceImpl implements GoodsService{
 	
 	@Autowired
 	private GoodsCategoryMapper categoryMapper;
+	
+	private GoodsCategoryRelationMapper relationMapper;
 	
 	@Override
 	public List<GoodsCategoryVO> categoryList() {
@@ -59,15 +64,39 @@ public class GoodsServiceImpl implements GoodsService{
 	@Transactional
 	@Override
 	public Integer categorySave(GoodsCategoryDto dto) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		GoodsCategory category = new GoodsCategory();
+		BeanUtils.copyProperties(dto, category);
+		category.setLevel(dto.getPId() == 0 ? 0 : 1);
+		
+		if(dto.getId() == null) {
+			// 新增
+			return categoryMapper.insert(category);
+		}else {
+			// 更新
+			return categoryMapper.updateById(category);
+		}
 	}
 
 	@Transactional
 	@Override
-	public Integer categoryRemove(Long id) {
+	public Integer categoryRemove(Long categoryId, Integer clearRelation) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		QueryWrapper<GoodsCategoryRelation> wrapper = new QueryWrapper<>();
+		wrapper.eq("category_id", categoryId);
+		int count = relationMapper.selectCount(wrapper);
+		if(count > 0) {
+			if(clearRelation != 1) {
+				// 这地方可以抛异常
+				return 0;
+			}else {
+				// 清空商品与分类的关联
+				relationMapper.delete(wrapper);
+			}
+		}
+		
+		return categoryMapper.deleteById(categoryId);
 	}
 
 	@Override
@@ -116,15 +145,33 @@ public class GoodsServiceImpl implements GoodsService{
 	@Transactional
 	@Override
 	public Integer save(GoodsDto dto) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Goods goods = new Goods();
+		BeanUtils.copyProperties(dto, goods);
+		
+		Date now = new Date();
+		goods.setCreateDate(now);
+		goods.setUpdateDate(now);
+		
+		if(dto.getId() == null) {
+			// 新增
+			return goodsMapper.insert(goods);
+		}else {
+			// 更新
+			return goodsMapper.updateById(goods);
+		}
 	}
 
 	@Transactional
 	@Override
 	public Integer remove(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+
+		// 1 清空商品与分类的关联
+		QueryWrapper<GoodsCategoryRelation> wrapper = new QueryWrapper<>();
+		wrapper.eq("goods_id", id);
+		relationMapper.delete(wrapper);
+		
+		return goodsMapper.deleteById(id);
 	}
 
 }

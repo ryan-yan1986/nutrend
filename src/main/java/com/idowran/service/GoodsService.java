@@ -13,7 +13,7 @@ public interface GoodsService {
 	
 	public Integer categorySave(GoodsCategoryDto dto);
 	
-	public Integer categoryRemove(Long id);
+	public Integer categoryRemove(Long id, Integer clearRelation);
 	
 	
 	public List<GoodsVO> getList(Long categoryId);

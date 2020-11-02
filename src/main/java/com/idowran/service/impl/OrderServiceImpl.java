@@ -1,6 +1,5 @@
 package com.idowran.service.impl;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.idowran.entity.Goods;
 import com.idowran.entity.Order;
 import com.idowran.entity.OrderGoods;
 import com.idowran.entity.response.OrderGoodsVO;
@@ -118,15 +116,13 @@ public class OrderServiceImpl implements OrderService {
 		
 		Double priceTotal = 0.0;
 		
-		
 		Order order = new Order();
 		order.setUserId(userId);
 		order.setCreateDate(new Date());
 		order.setStatus(OrderStatusConstant.ORDER_STATUS_WILL_PAYMENT);
 		order.setPriceTotal(priceTotal);
-		int res = orderMapper.insert(order);
 		
-		return res;
+		return orderMapper.insert(order);
 	}
 	
 	@Transactional
@@ -153,6 +149,4 @@ public class OrderServiceImpl implements OrderService {
 		
 		return orderMapper.updateById(order);
 	}
-	
-	
 }
