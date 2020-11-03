@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.idowran.entity.request.OrderCommendDto;
 import com.idowran.entity.response.OrderVO;
 import com.idowran.service.OrderService;
 import com.idowran.utils.constants.URLConstant;
@@ -47,6 +49,48 @@ public class OrderController {
 		return JsonResponseEntity.ok(res);
 	}
 	
+	/**
+	 * 商家发货
+	 * @param id
+	 * @return
+	 */
+	@PostMapping(value = URLConstant.ORDER_SHIPPING)
+	public JsonResponseEntity<Integer> shipping(@RequestParam("id") Long id) {
+		Integer res = orderService.shipping(id);
+		if(res == null) {
+			return JsonResponseEntity.fail(0);
+		}
+		return JsonResponseEntity.ok(res);
+	}
+	
+	/**
+	 * 买家签收
+	 * @param id
+	 * @return
+	 */
+	@PostMapping(value = URLConstant.ORDER_RECEIVING)
+	public JsonResponseEntity<Integer> receiving(@RequestParam("id") Long id) {
+		Integer res = orderService.receiving(id);
+		if(res == null) {
+			return JsonResponseEntity.fail(0);
+		}
+		return JsonResponseEntity.ok(res);
+	}
+
+	/**
+	 * 买家评价
+	 * @param dto
+	 * @return
+	 */
+	@PostMapping(value = URLConstant.ORDER_COMMEND)
+	public JsonResponseEntity<Integer> commend(@RequestBody OrderCommendDto dto) {
+		Integer res = orderService.commend(dto);
+		if(res == null) {
+			return JsonResponseEntity.fail(0);
+		}
+		return JsonResponseEntity.ok(res);
+	}
+	
 	@PostMapping(value = URLConstant.ORDER_CANCEL)
 	public JsonResponseEntity<Integer> cancel(@RequestParam("id") Long id) {
 		Integer res = orderService.cancel(id);
@@ -59,15 +103,6 @@ public class OrderController {
 	@PostMapping(value = URLConstant.ORDER_REMOVE)
 	public JsonResponseEntity<Integer> remove(@RequestParam("id") Long id) {
 		Integer res = orderService.remove(id);
-		if(res == null) {
-			return JsonResponseEntity.fail(0);
-		}
-		return JsonResponseEntity.ok(res);
-	}
-
-	@PostMapping(value = URLConstant.ORDER_COMMEND)
-	public JsonResponseEntity<Integer> commend() {
-		Integer res = orderService.commend();
 		if(res == null) {
 			return JsonResponseEntity.fail(0);
 		}

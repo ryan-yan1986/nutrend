@@ -31,9 +31,12 @@ public class URLConstant {
 	public final static String ORDER_GET_ONE	= ORDER_MODULE + "/getOne";
 	
 	public final static String ORDER_CREATE		= ORDER_MODULE + "/create";
+//	public final static String ORDER_PAYMENT	= ORDER_MODULE + "/payment";	// 支付订单
+	public final static String ORDER_SHIPPING	= ORDER_MODULE + "/shipping";	// 商家发货
+	public final static String ORDER_RECEIVING	= ORDER_MODULE + "/receiving";	// 买家收货
+	public final static String ORDER_COMMEND	= ORDER_MODULE + "/commend";	// 评价订单
 	public final static String ORDER_CANCEL		= ORDER_MODULE + "/cancel";
 	public final static String ORDER_REMOVE		= ORDER_MODULE + "/remove";
-	public final static String ORDER_COMMEND	= ORDER_MODULE + "/commend";	// 评价订单
 	
 	// 支付模块
 	

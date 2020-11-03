@@ -5,8 +5,6 @@ import lombok.Data;
 @Data
 public class OrderGoodsVO {
 	
-	private Long id;
-	
 	private Long goodsId;		// 商品Id
 	
 	private String title;
